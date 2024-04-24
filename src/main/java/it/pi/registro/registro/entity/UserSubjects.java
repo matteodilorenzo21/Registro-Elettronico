@@ -2,6 +2,7 @@ package it.pi.registro.registro.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,4 +42,10 @@ public class UserSubjects {
     @JoinColumn(name = "teacher_id")
     @JsonIgnoreProperties("userSubjects") // Ignore serialization of User's userSubjects reference
     private User teacher;
+
+    @PrePersist
+    public void prePersist(){
+        this.vote_date = LocalDateTime.now();
+        this.notes = this.notes != null && !this.notes.isEmpty() ? this.notes : "Nessuna Nota Inserita";
+    }
 }

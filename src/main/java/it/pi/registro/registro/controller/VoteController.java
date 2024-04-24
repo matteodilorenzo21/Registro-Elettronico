@@ -28,8 +28,10 @@ public class VoteController {
 
     @PostMapping
     public ResponseEntity<?> assignVote(@Valid @RequestBody VoteAssignRequestDTO voteAssignRequestDTO){
-        //System.out.println("assignVote called");
-        //System.out.println(voteAssignRequestDTO);
-        return null;
+        try {
+            return new ResponseEntity<>(voteService.assignVote(voteAssignRequestDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 }
